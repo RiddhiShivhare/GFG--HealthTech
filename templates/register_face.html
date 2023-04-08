@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Face</title>
+</head>
+
+<body >
+    <center>
+    <form action='/add' method="POST" enctype="multipart/form-data">
+        <div class="msg"><h1 align="center" style ="color:blue;">{{ msg }}</h1></div>
+        <h2 style="border-radius: 20px 20px 0px 0px;background-color: #0b4c61;color: white;padding: 10px;">Add
+            Face</h2>
+        <label style="font-size: 20px;"><b>Enter your Phone No. Again</b></label>
+        <br>
+        <input type="text" id="phn" name='phn'
+            style="font-size: 20px;margin-top:10px;margin-bottom:10px;" required>
+        <br>
+        <br>
+        <button style="width: 232px;margin-top: 20px;font-size: 20px;" type='submit' class='btn btn-dark'>Add
+            Face
+        </button>
+        <br>
+        
+    </form>
+</center>
+</body>
+</html>

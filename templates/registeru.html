@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>user_register form</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: white;
+        }
+
+        *{
+            box-sizing: border-box;
+        }
+
+        /* Add padding to containers */
+        .container {
+            padding: 16px;
+            background-color: white;
+        }
+
+        /* Full-width input fields */
+        input[type=text],
+        input[type=password] ,  input[type=number] , input[type= tel] ,input[type=date], select  {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
+        }
+
+        input[type=text]:focus,
+        input[type=password]:focus , input[type="tel"]:focus , input[type="number"]:focus , input[type="date"]:focus{
+            background-color: #ddd;
+            outline: none;
+        }
+
+        /* Overwrite default styles of hr */
+        hr {
+            border: 1px solid #f1f1f1;
+            margin-bottom: 25px;
+        }
+
+        /* Set a style for the submit button */
+        .btn {
+            background-color: #04AA6D;
+            color: white;
+            padding: 16px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+        }
+
+        .btn:hover {
+            opacity: 1;
+        }
+
+        /* Add a blue text color to links */
+        a {
+            color: dodgerblue;
+        }
+
+        /* Set a grey background color and center the text of the "sign in" section */
+        .signin {
+            background-color: #f1f1f1;
+            text-align: center;
+        }
+        @media(max-width: 600px){
+            .container{
+                min-width: 280px;
+            }
+        }
+        .required:after {
+    content:" *";
+    color: red;
+    </style>
+</head>
+
+<body>
+
+   <form action="{{ url_for('registeru') }}" method="post"  enctype="multipart/form-data">
+    <div class="msg"><h1 align="center" style ="color:blue;">{{ msg }}</h1></div>
+        <div class="container">
+            <h1 align="center"><b>New User Registration</b></h1>
+            <p align="center"><b>Please fill in the form below</b></p>
+            <hr>
+
+            <fieldset>
+             <legend align ="center"><b>General User information</b></legend>
+            <label for="name"class="required"><b>Name</b></label>
+            <input type="text" placeholder="Enter Name" name="name" id="name" required>
+
+            <label for="gender"class="required"><b>sex</b></label>
+            <select name="gender" id="gender">
+                <option value="male">------Please Select------</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+            <br>
+
+            <label for="DOB"class="required"><b>DOB</b></label>
+            <input type="date" name="DOB" id="DOB">
+            <br>
+
+            <label for="phn"class="required"><b>phone number</b></label>
+            <input type="number" id="phn" name="phn" pattern="">
+
+            <label for="addr"class="required"><b>Address</b></label>
+            <input type ="text" id="addr" name = "addr" size="100"> 
+
+            <label for="bldgrp"class="required"><b>Blood Group</b></label>
+            <select name="bldgrp" id="bldgrp">
+                <option value="">------Please Select------</option>
+                <option value="A+">A+</option>
+                <option value="B+">B+</option>
+                <option value="O+">O+</option>
+                <option value="AB+">AB+</option>
+                <option value="A-">A-</option>
+                <option value="B-">B-</option>
+                <option value="O-">O-</option>
+                <option value="AB-">AB-</option>
+            </select>
+
+            <label for="email"class="required"><b>Email</b></label>
+            <input type="text" placeholder="Enter Email" name="email" id="email" required autocomplete="off">
+
+            <label for="psw"class="required"><b>Password</b></label>
+            <!-- <input type="password" placeholder="Enter Password" name="psw" id="psw" required> -->
+            <input type="password" id="psw" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                required autocomplete="off">
+            </fieldset>
+
+            
+           <fieldset>
+                <legend align ="center"><b>Emergency Contact</b></legend>
+                    <label for="ename" class="required"><b>Name</b></label>
+                    <input type="text" name="ename" id="ename" placeholder="full name required" required>
+            
+                    <label for="relation" class="required"><b>Relation</b></label>
+                    <select name="relation" id="relation">
+                        <option value="">------Please Select------</option>
+                        <option value="Father">Father</option>
+                        <option value="Mother">Mother</option>
+                        <option value="Brother">Brother</option>
+                        <option value="Sister">Sister</option>
+                        <option value="Spouse">Spouse</option>
+                        <option value="Friend">Friend</option>
+                    </select>
+        
+                    <label for="phone" class="required"><b>phone number</b></label>
+                   <input type="number" id="phone" name="phone" pattern="">
+            </fieldset>
+            <hr>
+            <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+
+           <input type="submit" class="btn" value="Sign Up"></br>
+        </div>
+
+        <div class="container signin">
+            <p>Already have an account? <a href="{{url_for('login')}}">Sign in</a>.</p>
+        </div>
+    </form>
+
+</body>
+</html>

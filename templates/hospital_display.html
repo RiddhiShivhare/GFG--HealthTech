@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Patient's Details</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
+.btn{
+backgound-color: blue;
+}
+
+.btn a{
+        color:teal;
+        text-decoration: none;
+        margin:auto;
+     }
+     .btn a:hover{
+       color: black;
+     }
+</style>
+</head>
+<body class="w3-light-grey">
+
+<!-- Page Container -->
+<div class="w3-content w3-margin-top" style="max-width:1400px;">
+
+  <!-- The Grid -->
+  <div class="w3-row-padding">
+  
+    <!-- Left Column -->
+    <div class="w3-third">
+    
+      <div class="w3-white w3-text-grey w3-card-4">
+        <div class="w3-display-container">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOK_bYaHApfSgOyEnMnpx9T3Kc_CjvFzaydg&usqp=CAU" style="width:100%" alt="Avatar">
+           <br><br><br>
+          <div class="w3-display-bottomleft w3-container w3-text-black">
+
+            <h2>{{row['name']}}</h2>
+          </div>
+        </div>
+        <div class="w3-container">
+          <p><i class=""></i>Gender : {{row['gender']}}</p>
+          <p><i class=""></i>Date of Birth : {{row['DOB']}}</p>
+          <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>{{row['email']}}</p>
+          <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>{{row['phn']}}</p>
+          <p><i class=""></i>Address: : {{row['addr']}}</p>
+          <p><i class=""></i>Blood Group : {{row['bldgrp']}}</p>
+          <hr>
+
+          <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Emergency Contact Details</b></p>
+          
+          <p>Name : {{row['ename']}}</p>
+         
+          <p>Phone No. {{row['phone']}}</p>
+          
+          <p>Relation : {{row['relation']}}</p>
+          
+          <br>
+        </div>
+      </div><br>
+
+    <!-- End Left Column -->
+    </div>
+
+    <!-- Right Column -->
+    <div class="w3-twothird">
+
+      <div class="w3-container w3-card w3-white w3-margin-bottom">
+        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Medical History</h2>
+          {% for rows in row1 %}
+        <div class="w3-container">
+          <h5 class="w3-opacity"><b>{{rows['Dname']}}</b></h5>
+          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{rows['date']}}</h6>
+          <p><emp>Doctor Name :</emp> {{rows['doc']}}  </p>
+          <p><bold>Symptoms: </bold>{{rows['sym']}}   </p>
+          </p><bold>Allergies :</bold>  {{rows['allergies']}}</p>
+          <a href="{{rows['reports']}}" target="_blank">View Report</a>
+          <hr>
+        </div>
+        {% endfor %}
+
+
+
+
+    <!-- End Right Column -->
+    </div>
+    
+  <!-- End Grid -->
+  </div>
+    <button class="btn"><a href="{{ url_for('index_hospital') }}" class="btn-btn-primary">Back</a></button>
+  <!-- End Page Container -->
+</div>
+
+</body>
+</html>

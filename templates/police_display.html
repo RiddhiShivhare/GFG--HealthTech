@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Start your development with Meyawo landing page.">
+    <meta name="author" content="Devcrud">
+    <title>Police Details</title>
+    <!-- font icons -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/vendors/themify-icons/css/themify-icons.css') }}">
+    <!-- Bootstrap + Meyawo main styles -->
+	<link rel="stylesheet" href=" {{ url_for('static', filename='/assets/css/meyawo.css') }}">
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+
+    <!-- Page Navbar -->
+    <nav class="custom-navbar" data-spy="affix" data-offset-top="20">
+        <div class="container">
+
+            <ul class="nav">
+                <li class="item">
+                    <a class="link" href="{{ url_for('index_police') }}">Home</a>
+                </li>
+                <li class="item">
+                    <a class="link" href="#about">About</a>
+                </li>
+                 <li class="item">
+                    <a class="link" href="{{ url_for('logout') }}">Logout</a>
+                </li>
+
+            </ul>
+            <a href="javascript:void(0)" id="nav-toggle" class="hamburger hamburger--elastic">
+                <div class="hamburger-box">
+                  <div class="hamburger-inner"></div>
+                </div>
+            </a>
+        </div>
+    </nav><!-- End of Page Navbar -->
+
+    <!-- page header -->
+    <header id="home" class="header">
+        <div class="overlay"></div>
+        <div class="header-content container">
+            <h1 class="header-title">
+                <span class="up">{{row1['name']}}</span>
+            </h1>
+            <br>
+             <h6 class="header-title">
+                <span class="down">Gender : {{row1['gender']}}</span>
+            </h6>
+             <h6 class="header-title">
+                <span class="down">Date of Birth : {{row1['DOB']}}</span>
+            </h6>
+
+        </div>
+    </header><!-- end of page header -->
+
+    <!-- about section -->
+    <section class="section pt-0" id="about">
+        <!-- container -->
+        <div class="container text-center">
+            <!-- about wrapper -->
+            <div class="about">
+                <div class="about-img-holder">
+                    <img src="{{ url_for('static', filename='assets/imgs/user2.jpeg') }}" class="about-img" alt="No Image">
+                </div>
+                <div class="about-caption">
+                    <h2 class="section-title mb-3">Address : </h2>
+                    <p  class="header-subtitle">{{row1['addr']}}
+                    </p>
+                    <br>
+                     <h2 class="section-title mb-3">Phone Number : </h2>
+                    <p  class="header-subtitle">{{row1['phn']}}
+                    </p>
+                    <br>
+                     <h2 class="section-title mb-3">Email : </h2>
+                    <p  class="header-subtitle">{{row1['email']}}
+                    </p>
+                    <br>
+                    <h2 class="section-title mb-3">Emergency Contact : </h2>
+                    <p  class="header-subtitle">Name :{{row1['ename']}}
+                    </p>
+                    <p class="header-subtitle">Relation : {{row1['relation']}}
+                    </p>
+                    <p class="header-subtitle">Phone No. {{row1['phone']}}
+                    </p>
+                </div>
+            </div><!-- end of about wrapper -->
+        </div><!-- end of container -->
+    </section> <!-- end of about section -->
+
+
+	<!-- core  -->
+    <script src= " {{ url_for('static', filename='assets/vendors/jquery/jquery-3.4.1.js') }} "></script>
+    <script src=" {{ url_for('static', filename='assets/vendors/bootstrap/bootstrap.bundle.js') }} "></script>
+
+    <!-- bootstrap 3 affix -->
+	<script src=" {{ url_for('static', filename='assets/vendors/bootstrap/bootstrap.affix.js') }} "></script>
+
+    <!-- Meyawo js -->
+    <script src=" {{ url_for('static', filename='assets/js/meyawo.js') }} "></script>
+
+</body>
+</html>
