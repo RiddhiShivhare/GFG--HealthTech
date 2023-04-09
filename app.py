@@ -1,8 +1,5 @@
 import cv2
 import os
-from flask import Flask,request,render_template,flash,redirect
-from datetime import date
-from datetime import datetime
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 import joblib
@@ -10,6 +7,7 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
+import shutil
 
 
 #### Defining Flask App
@@ -189,34 +187,6 @@ def registerm():
         return render_template('index_user.html', msg=msg, rows=row_records, row1=row_details)
     return render_template('registerm.html')
 
-
-
-@app.route('/index_hospital', methods =['GET', 'POST'])
-def index_hospital():
-    msg=''
-    row_records = hospital_details(session['hid'])
-    #print(row_records)
-    return render_template('index_hospital.html', msg=msg, row=row_records)
-
-@app.route('/index_police', methods =['GET', 'POST'])
-def index_police():
-    msg=''
-    row_records = police_details(session['pid'])
-    #print(row_records)
-    return render_template('index_police.html', msg=msg, row=row_records)
-
-@app.route('/index_user', methods =['GET', 'POST'])
-def index_user():
-    msg=''
-    row_details = display_details(session['phn'])
-    row_records = display_reports(session['id'])
-    print(row_records)
-    return render_template('index_user.html', msg=msg, rows=row_records, row1=row_details)
-
-@app.route('/healthInsurance', methods =['GET', 'POST'])
-def healthInsurance():
-    return render_template('healthInsurance.html')
-
 @app.route('/update', methods =['GET', 'POST'])
 def update():
     msg = ''
@@ -245,9 +215,77 @@ def update():
       return render_template('index_user.html', msg=msg, rows=row_records, row1=row_details)
     return render_template('update.html')
 
-#### Saving Date today in 2 different formats
-datetoday = date.today().strftime("%m_%d_%y")
-datetoday2 = date.today().strftime("%d-%B-%Y")
+
+@app.route('/index_hospital', methods =['GET', 'POST'])
+def index_hospital():
+    msg=''
+    row_records = hospital_details(session['hid'])
+    #print(row_records)
+    return render_template('index_hospital.html', msg=msg, row=row_records)
+
+@app.route('/index_police', methods =['GET', 'POST'])
+def index_police():
+    msg=''
+    row_records = police_details(session['pid'])
+    #print(row_records)
+    return render_template('index_police.html', msg=msg, row=row_records)
+
+@app.route('/index_user', methods =['GET', 'POST'])
+def index_user():
+    msg=''
+    row_details = display_details(session['phn'])
+    row_records = display_reports(session['id'])
+    print(row_records)
+    return render_template('index_user.html', msg=msg, rows=row_records, row1=row_details)
+
+@app.route('/healthInsurance', methods =['GET', 'POST'])
+def healthInsurance():
+    return render_template('healthInsurance.html')
+
+def hospital_details(id):
+   #fetch reports of phn no. mentioned
+   cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+   cursor.execute("Select * from hospitalregister")
+   myresult = cursor.fetchall()  # fetching all rows of the table
+   for row in myresult:
+       #print(row)
+       if (id == row['hid']):  # if name is in row then return that row , row is a dictionary
+           return (row)
+
+
+def police_details(id):
+   #fetch reports of phn no. mentioned
+   cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+   cursor.execute("Select * from policeregister")
+   myresult = cursor.fetchall()  # fetching all rows of the table
+   for row in myresult:
+       #print(row)
+       if (id == row['pid']):  # if name is in row then return that row , row is a dictionary
+           return (row)
+
+def display_details(phn):
+   #fetch reports of phn no. mentioned
+   cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+   cursor.execute("Select * from userregister")
+   myresult = cursor.fetchall()  # fetching all rows of the table
+   for row in myresult:
+       #print(row)
+       if phn in row['phn']:  # if name is in row then return that row , row is a dictionary
+           return (row)
+
+def display_reports(id):
+    r=[]
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("Select * from medical_records")
+    myresult = cursor.fetchall()  # fetching all rows of the table
+    for row in myresult:
+        if (id == row['id']):# if name is in row then return that row
+            if(row['reports']==''):
+                row['reports']='https://drive.google.com/file/d/1oFkHtET8WNYl1S8wDsYBDqfjt_4u3_A-/view?usp=share_link'
+            r.append(row)
+    return (r)
+
+
 
 
 #### Initializing VideoCapture object to access WebCam
@@ -296,49 +334,6 @@ def train_model():
     knn.fit(faces,labels)
     joblib.dump(knn,'static/face_recognition_model.pkl')
 
-def hospital_details(id):
-   #fetch reports of phn no. mentioned
-   cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-   cursor.execute("Select * from hospitalregister")
-   myresult = cursor.fetchall()  # fetching all rows of the table
-   for row in myresult:
-       #print(row)
-       if (id == row['hid']):  # if name is in row then return that row , row is a dictionary
-           return (row)
-
-
-def police_details(id):
-   #fetch reports of phn no. mentioned
-   cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-   cursor.execute("Select * from policeregister")
-   myresult = cursor.fetchall()  # fetching all rows of the table
-   for row in myresult:
-       #print(row)
-       if (id == row['pid']):  # if name is in row then return that row , row is a dictionary
-           return (row)
-
-def display_details(phn):
-   #fetch reports of phn no. mentioned
-   cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-   cursor.execute("Select * from userregister")
-   myresult = cursor.fetchall()  # fetching all rows of the table
-   for row in myresult:
-       #print(row)
-       if phn in row['phn']:  # if name is in row then return that row , row is a dictionary
-           return (row)
-
-def display_reports(id):
-    r=[]
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute("Select * from medical_records")
-    myresult = cursor.fetchall()  # fetching all rows of the table
-    for row in myresult:
-        if (id == row['id']):# if name is in row then return that row
-            if(row['reports']==''):
-                row['reports']='https://drive.google.com/file/d/1oFkHtET8WNYl1S8wDsYBDqfjt_4u3_A-/view?usp=share_link'
-            r.append(row)
-    return (r)
-
 
 
 #### This function will run when we click on Sacn Face Button
@@ -385,7 +380,7 @@ def startp():
             identified_person = identify_face(face.reshape(1,-1))[0]
             row_details=display_details(identified_person)
             return render_template('police_display.html', row1=row_details)
-        elif count>5:
+        elif count>3:
             return render_template('UnregisteredUser.html')
 
 
@@ -394,7 +389,6 @@ def startp():
 @app.route('/add',methods=['GET','POST'])
 def add():
     phn = request.form['phn']
-    #newuserid = request.form['newuserid']
     userimagefolder = 'static/faces/'+str(phn)
     if not os.path.isdir(userimagefolder):
         os.makedirs(userimagefolder)
@@ -419,6 +413,7 @@ def add():
     cap.release()
     cv2.destroyAllWindows()
     train_model()
+    shutil.rmtree(userimagefolder)
     msg='Yor Face has been registered successfully! Now you can login'
     return render_template('login.html' ,msg=msg)
 

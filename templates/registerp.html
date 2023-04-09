@@ -88,13 +88,13 @@
             <hr>
 
             <label for="name" class="required"><b>Police Name</b></label>
-            <input type="text"  name="name" id="name" required autocomplete="off">
+            <input type="text"  placeholder="Enter your name" name="name" id="name" required autocomplete="off">
 
             <label for="psw" class="required"><b>Password</b></label>
             <!-- <input type="password" placeholder="Enter Password" name="psw" id="psw" required> -->
-            <input type="password" id="psw" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+            <input type="password" id="psw" placeholder="Enter Your Password" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                 title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-                required>
+                required autocomplete="off">
 
             <br><br>
 

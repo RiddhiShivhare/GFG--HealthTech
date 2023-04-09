@@ -11,21 +11,18 @@
     <!-- Bootstrap + Meyawo main styles -->
 	<link rel="stylesheet" href=" {{ url_for('static', filename='/assets/css/meyawo.css') }}">
 </head>
-<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+<body >
 
     <!-- Page Navbar -->
-    <nav class="custom-navbar" data-spy="affix" data-offset-top="20">
+    <nav class="custom-navbar" data-spy="affix" data-offset-top="500">
         <div class="container">
 
             <ul class="nav">
                 <li class="item">
-                    <a class="link" href="{{ url_for('index_police') }}">Home</a>
+                    <a class="link" style="font-size: 30px" href="{{ url_for('index_police') }}">Home</a>
                 </li>
-                <li class="item">
-                    <a class="link" href="#about">About</a>
-                </li>
-                 <li class="item">
-                    <a class="link" href="{{ url_for('logout') }}">Logout</a>
+                 <li class="item" >
+                    <a class="link" style="font-size: 30px" href="{{ url_for('logout') }}">Logout</a>
                 </li>
 
             </ul>
@@ -39,53 +36,27 @@
 
     <!-- page header -->
     <header id="home" class="header">
-        <div class="overlay"></div>
         <div class="header-content container">
-            <h1 class="header-title">
-                <span class="up">{{row1['name']}}</span>
+            <center>
+            <h1 style="color: black;">
+                {{row1['name']}}
             </h1>
             <br>
-             <h6 class="header-title">
-                <span class="down">Gender : {{row1['gender']}}</span>
-            </h6>
-             <h6 class="header-title">
-                <span class="down">Date of Birth : {{row1['DOB']}}</span>
-            </h6>
-
+                <h4>Phone No.: {{row1['phn']}}</h4>
+                 <h4>Address : {{row1['addr']}}</h4>
+                 <h4>Email : {{row1['email']}}</h4>
+             <h4 > Gender : {{row1['gender']}}</h4>
+             <h4>Date of Birth : {{row1['DOB']}}</h4>
+                <br><br>
+             <h4 style="color: black;">Emergency Contact</h4>
+             <h4>Name : {{row1['ename']}}</h4>
+             <h4>Relation : {{row1['relation']}}</h4>
+             <h4>Phone No. : {{row1['phone']}}</h4>
+</center>
         </div>
     </header><!-- end of page header -->
 
-    <!-- about section -->
-    <section class="section pt-0" id="about">
-        <!-- container -->
-        <div class="container text-center">
-            <!-- about wrapper -->
-            <div class="about">
-                <div class="about-img-holder">
-                    <img src="{{ url_for('static', filename='assets/imgs/user2.jpeg') }}" class="about-img" alt="No Image">
-                </div>
-                <div class="about-caption">
-                    <h2 class="section-title mb-3">Address : </h2>
-                    <p  class="header-subtitle">{{row1['addr']}}
-                    </p>
-                    <br>
-                     <h2 class="section-title mb-3">Phone Number : </h2>
-                    <p  class="header-subtitle">{{row1['phn']}}
-                    </p>
-                    <br>
-                     <h2 class="section-title mb-3">Email : </h2>
-                    <p  class="header-subtitle">{{row1['email']}}
-                    </p>
-                    <br>
-                    <h2 class="section-title mb-3">Emergency Contact : </h2>
-                    <p  class="header-subtitle">Name :{{row1['ename']}}
-                    </p>
-                    <p class="header-subtitle">Relation : {{row1['relation']}}
-                    </p>
-                    <p class="header-subtitle">Phone No. {{row1['phone']}}
-                    </p>
-                </div>
-            </div><!-- end of about wrapper -->
+
         </div><!-- end of container -->
     </section> <!-- end of about section -->
 

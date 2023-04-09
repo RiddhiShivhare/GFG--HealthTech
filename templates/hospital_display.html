@@ -30,10 +30,10 @@ backgound-color: blue;
 
   <!-- The Grid -->
   <div class="w3-row-padding">
-  
+
     <!-- Left Column -->
     <div class="w3-third">
-    
+
       <div class="w3-white w3-text-grey w3-card-4">
         <div class="w3-display-container">
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOK_bYaHApfSgOyEnMnpx9T3Kc_CjvFzaydg&usqp=CAU" style="width:100%" alt="Avatar">
@@ -53,13 +53,13 @@ backgound-color: blue;
           <hr>
 
           <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Emergency Contact Details</b></p>
-          
+
           <p>Name : {{row['ename']}}</p>
-         
+
           <p>Phone No. {{row['phone']}}</p>
-          
+
           <p>Relation : {{row['relation']}}</p>
-          
+
           <br>
         </div>
       </div><br>
@@ -89,7 +89,7 @@ backgound-color: blue;
 
     <!-- End Right Column -->
     </div>
-    
+
   <!-- End Grid -->
   </div>
     <button class="btn"><a href="{{ url_for('index_hospital') }}" class="btn-btn-primary">Back</a></button>
