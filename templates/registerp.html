@@ -77,10 +77,16 @@
     content:" *";
     color: red;
     </style>
+    <script>
+        $(document).ready(function() {
+  $('input[type="text"]').val('');
+  $('input[type="password"]').val('');
+});
+    </script>
 </head>
 
 <body>
-    <form action="{{ url_for('registerp') }}"  method ="post" enctype="multipart/form-data">
+    <form action="{{ url_for('registerp') }}"  method ="post" autocomplete="off" enctype="multipart/form-data">
          <div class="msg"><h1 align="center" style ="color:blue;">{{ msg }}</h1></div>
         <div class="container">
             <h1 align ="center"><b>Police Registration</b></h1>

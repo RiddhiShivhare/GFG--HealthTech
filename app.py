@@ -8,6 +8,7 @@ from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
 import shutil
+import bcrypt
 
 
 #### Defining Flask App
@@ -32,14 +33,26 @@ def login():
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         username = request.form['username']
         password = request.form['password']
+        # encoding user password
+        userBytes = password.encode('utf-8')
+        print(userBytes)
+
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM userregister WHERE name = % s AND psw = % s', (username, password, ))
+        cursor.execute('SELECT * FROM userregister WHERE name = % s' , (username, ))
         account = cursor.fetchone()
-        cursor.execute('SELECT * FROM hospitalregister WHERE name = % s AND psw = % s', (username, password,))
-        account1=cursor.fetchone()
-        cursor.execute('SELECT * FROM policeregister WHERE name = % s AND psw = % s', (username, password,))
-        account2 = cursor.fetchone()
         if account:
+            result=bcrypt.checkpw(userBytes, account['psw'].encode('utf-8'))
+        cursor.execute('SELECT * FROM hospitalregister WHERE name = % s ', (username,))
+        account1=cursor.fetchone()
+        if account1:
+            result=bcrypt.checkpw(userBytes, account1['psw'].encode('utf-8'))
+
+        cursor.execute('SELECT * FROM policeregister WHERE name = % s ', (username,))
+        account2 = cursor.fetchone()
+        if account2:
+            result=bcrypt.checkpw(userBytes, account2['psw'].encode('utf-8'))
+
+        if account and result :
             session['loggedinu'] = True
             session['id'] = account['Patient_id']
             session['username'] = account['name']
@@ -51,14 +64,14 @@ def login():
             print(row_records)
 
             return render_template('index_user.html', msg = msg, rows =row_records , row1=row_details)
-        elif account1:
+        elif account1 and result:
             session['loggedinh'] = True
             session['hid'] = account1['hid']
             session['username'] = account1['name']
             msg = 'Logged in successfully !'
             row=hospital_details(session['hid'])
             return render_template('index_hospital.html', msg=msg,row=row)
-        elif account2:
+        elif account2 and result:
             session['loggedinp'] = True
             session['pid'] = account2['pid']
             session['username'] = account2['name']
@@ -88,6 +101,9 @@ def registerh():
         pin = request.form['pin']
         state = request.form['state']
         city = request.form['city']
+        bytes = psw.encode('utf-8')
+        salt = bcrypt.gensalt()
+        hashed_psw = bcrypt.hashpw(bytes, salt)
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM hospitalregister WHERE name = % s', (name, ))
         account = cursor.fetchone()
@@ -96,7 +112,7 @@ def registerh():
         elif not name or not psw :
             msg = 'Please fill out the form !'
         else:
-            cursor.execute('INSERT INTO hospitalregister VALUES (NULL, % s, % s, % s, % s, % s, % s, % s)', (name, psw, loc,area,pin,state,city ,))
+            cursor.execute('INSERT INTO hospitalregister VALUES (NULL, % s, % s, % s, % s, % s, % s, % s)', (name, hashed_psw, loc,area,pin,state,city ,))
             mysql.connection.commit()
             msg = 'You have successfully registered !'
             return render_template('login.html')
@@ -115,6 +131,9 @@ def registerp():
         pin = request.form['pin']
         state = request.form['state']
         city = request.form['city']
+        bytes = psw.encode('utf-8')
+        salt = bcrypt.gensalt()
+        hashed_psw = bcrypt.hashpw(bytes, salt)
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM policeregister WHERE name = % s', (name, ))
         account = cursor.fetchone()
@@ -123,7 +142,7 @@ def registerp():
         elif not name or not psw :
             msg = 'Please fill out the form !'
         else:
-            cursor.execute('INSERT INTO policeregister VALUES (NULL, % s, % s, % s, % s, % s, % s, % s)', (name, psw, loc,area,pin,state,city ,))
+            cursor.execute('INSERT INTO policeregister VALUES (NULL, % s, % s, % s, % s, % s, % s, % s)', (name, hashed_psw, loc,area,pin,state,city ,))
             mysql.connection.commit()
             msg = 'You have successfully registered !'
             return render_template('login.html')
@@ -146,6 +165,9 @@ def registeru():
         ename=request.form['ename']
         relation =request.form['relation']
         phone=request.form['phone']
+        bytes = psw.encode('utf-8')
+        salt = bcrypt.gensalt()
+        hashed_psw = bcrypt.hashpw(bytes, salt)
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM userregister WHERE name = % s', (name, ))
         account = cursor.fetchone()
@@ -156,7 +178,7 @@ def registeru():
         elif not name or not psw or not email:
             msg = 'Please fill out the form !'
         else:
-            cursor.execute('INSERT INTO userregister VALUES (NULL, % s, % s, % s, % s, % s, % s, % s, % s, % s, % s, % s)', (name,gender,dob,phn,addr,bldgrp,email,psw,ename,relation,phone, ))
+            cursor.execute('INSERT INTO userregister VALUES (NULL, % s, % s, % s, % s, % s, % s, % s, % s, % s, % s, % s)', (name,gender,dob,phn,addr,bldgrp,email,hashed_psw,ename,relation,phone, ))
             mysql.connection.commit()
             msg = 'You have successfully registered ! Now Register your Face'
             return render_template('register_face.html', msg=msg)
@@ -203,11 +225,12 @@ def update():
       ename = request.form['ename']
       relation = request.form['relation']
       phone = request.form['phone']
+      hashed_psw = bcrypt.generate_password_hash(psw).decode('utf-8')
       cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
       cursor.execute("""
         UPDATE userregister 
         SET name=%s,gender=%s,dob=%s,phn=%s,addr=%s,bldgrp=%s,email=%s,psw=%s,ename=%s,relation=%s,phone=%s
-         WHERE Patient_id=%s""",(name,gender,dob,phn,addr,bldgrp,email,psw,ename,relation,phone,id))
+         WHERE Patient_id=%s""",(name,gender,dob,phn,addr,bldgrp,email,hashed_psw,ename,relation,phone,id))
       mysql.connection.commit()
       msg = 'You have successfully Updated your Details !'
       row_details = display_details(session['phn'])
