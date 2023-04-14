@@ -79,7 +79,11 @@ backgound-color: blue;
           <p><emp>Doctor Name :</emp> {{rows['doc']}}  </p>
           <p><bold>Symptoms: </bold>{{rows['sym']}}   </p>
           </p><bold>Allergies :</bold>  {{rows['allergies']}}</p>
-          <a href="{{rows['reports']}}" target="_blank">View Report</a>
+                {% if rows['reports']=='' %}
+    <div  class="w3-container w3-theme w3-large" class="button_01"><a href="{{ url_for('xyz') }}" target="_blank">View Report</a> </div>
+  {% else %}
+    <div  class="w3-container w3-theme w3-large" class="button_01"><a href="{{row['reports']}}" target="_blank">View Report</a> </div>
+  {% endif %}
           <hr>
         </div>
         {% endfor %}

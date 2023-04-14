@@ -77,16 +77,10 @@
     content:" *";
     color: red;
     </style>
-    <script>
-        $(document).ready(function() {
-  $('input[type="text"]').val('');
-  $('input[type="password"]').val('');
-});
-    </script>
 </head>
 
 <body>
-    <form action="{{ url_for('registerp') }}"  method ="post" autocomplete="off" enctype="multipart/form-data">
+    <form action="{{ url_for('registerp') }}"  method ="post" enctype="multipart/form-data">
          <div class="msg"><h1 align="center" style ="color:blue;">{{ msg }}</h1></div>
         <div class="container">
             <h1 align ="center"><b>Police Registration</b></h1>
@@ -94,16 +88,19 @@
             <hr>
 
             <label for="name" class="required"><b>Police Name</b></label>
-            <input type="text"  placeholder="Enter your name" name="name" id="name" required autocomplete="off">
+            <input type="text"  name="name" id="name" required autocomplete="off">
 
             <label for="psw" class="required"><b>Password</b></label>
             <!-- <input type="password" placeholder="Enter Password" name="psw" id="psw" required> -->
-            <input type="password" id="psw" placeholder="Enter Your Password" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+            <input type="password" id="psw" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                 title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-                required autocomplete="off">
+                required>
+
+            <label for="pno" class="required"><b>Police Registration Number</b></label>
+            <input type="text" id="pno" name="pno" pattern="PRN.{5,}" required>
+               <!-- title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"-->
 
             <br><br>
-
             <h3>Police Station Address :</h3><hr>
             <label for="loc" class="required"><b>House/Block No.</b></label>
             <input type="text" name="loc" id="loc" required>

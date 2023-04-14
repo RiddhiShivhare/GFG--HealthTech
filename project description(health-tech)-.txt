@@ -1,0 +1,38 @@
+project description(health-tech)-
+
+AUTOMATED USER IDENTIFICATION AND MEDICAL RECORD SYSTEM BASED ON FACIAL RECOGNITION-
+
+PROBLEM STATEMENT
+
+DO WE REALLY NEED TO FILL OUT THE ENQUIRY FORMS AT THE HOSPITALS WHEN ANYTHING AND EVERYTHING CAN BE DIGITAL. PAPER FILES WHILE HANDY ARE AT A HIGHER RISK FOR LOSS AND THEFT. 
+
+With the ongoing covid-19 pandemic highlighting the need for remote healthcare solutions,the demand for health-tech has never been greater. the project aims to develop a cutting-edge health-tech solution that leverages the latest technologies to improve patient outcomes and enhance the quality of care, it will focus on the development of a comprehensive health platform that enables patients to manage their health and wellness proactively.
+
+In the technology era ,the people are looking for the solution of some of the problems in  most of the important sectors all over the world . One such sector is health sector .
+
+One of the prominent problems in the health sector which the hospitals and small clinics usually face is how to collect the patients data without wasting much time for the treatment .In most of the scenarios the situation of patient is quite critical so the hospitals have to face difficulties in collecting the data of patient which is vital for the hospitals .
+
+SOLUTION
+So we came up with the website where the patient can register and provide his/her details in the website including his face image , if  some incident happen , then hospitals have the website access where they can simply scan the face of the patient and get access to all the required information including the previous diseases , the symptoms , blood group , the emergency contact(whom they can inform about the incident if necessary) and the previous medical reports .
+
+It will also show the insurances which the user has enrolled in and might also suggest some insurances if not taken any . In this way it will save a lot of time of the patient as well as the hospital and the latter can easily move forward with the treatment which can at time save the life of the patient.
+
+In addition to this the website also has the police verification part where police can scan the face of the victim and can get the details of the person in case of any mishappening .
+
+CONCLUSION
+the health tech platform has the potential to revolutionize the way healthcare is delivered . the project will bring together the best minds in healthcare technology to develop an innovative health tech solution that meets the needs of patients and healthcare providers alike .
+
+TOOLS AND FRAMEWORKS-
+
+Client side-
+Programming lang.- Js
+
+User Interface-HTML,CSS
+
+Server side-
+Programming lang-Python,Databases,MYSQL,
+
+Framework-Flask
+
+Other Tools-
+IDE-PyCharm 
