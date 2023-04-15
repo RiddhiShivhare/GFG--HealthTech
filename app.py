@@ -111,7 +111,7 @@ class medical_reports(db.Model):
 @app.route('/login', methods =['GET', 'POST'])
 def login():
     msg = ''
-    #print(request.method)
+
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         username = request.form['username']
         password = request.form['password']
@@ -139,13 +139,12 @@ def login():
 
             row_details = display_details(user.phn)
             row_records = display_reports(user.Patient_id)
-            print(row_records)
+         
 
             return render_template('index_user.html', msg = msg, rows =row_records , row1=row_details)
         elif hospital and result:
             session['loggedinh'] = True
-            print(hospital.hid)
-            print(hospital.name)
+           
             session['hid'] = hospital.hid
             session['username'] = hospital.name
             msg = 'Logged in successfully !'
@@ -186,7 +185,7 @@ def registerh():
 
 
         account=hospitalregister.query.filter_by(name=name).all()
-        print(account)
+       
         if account:
             msg = 'Account already exists !'
         elif not name or not psw :
@@ -279,7 +278,7 @@ def registerm():
 
         msg = 'You have successfully uploaded the report ! '
         row_details = display_details(session['phn'])
-        # print(account['Patient_id'])
+        
         row_records = display_reports(session['id'])
 
         return render_template('index_user.html', msg=msg, rows=row_records, row1=row_details)
@@ -291,7 +290,7 @@ def update():
     if request.method == 'POST':
       id = session['id']
       user = userregister.query.filter_by(Patient_id=id).first()
-      print(user)
+ 
       user.name = request.form['name']
       user.gender = request.form['gender']
       user.dob = request.form['DOB']
@@ -322,7 +321,7 @@ def update():
 def index_hospital():
     msg=''
     row_records = hospital_details(session['hid'])
-    #print(row_records)
+
     return render_template('index_hospital.html', msg=msg, row=row_records)
 @app.route('/xyz', methods =['GET', 'POST'])
 def xyz():
@@ -332,7 +331,7 @@ def xyz():
 def index_police():
     msg=''
     row_records = police_details(session['pid'])
-    #print(row_records)
+
     return render_template('index_police.html', msg=msg, row=row_records)
 
 @app.route('/index_user', methods =['GET', 'POST'])
@@ -340,7 +339,7 @@ def index_user():
     msg=''
     row_details = display_details(session['phn'])
     row_records = display_reports(session['id'])
-    print(row_records)
+
     return render_template('index_user.html', msg=msg, rows=row_records, row1=row_details)
 
 @app.route('/healthInsurance', methods =['GET', 'POST'])
@@ -360,8 +359,7 @@ def police_details(id):
 
 def display_details(phn):
            row = userregister.query.filter_by(phn=phn).all()
-           ###print(phn)
-           ###print(row[0])
+    
            if(len(row)):
              return (row[0])
            return render_template('UnregisteredUser.html')
@@ -446,7 +444,7 @@ def start():
             cv2.rectangle(frame,(x, y), (x+w, y+h), (255, 0, 20), 2)
             face = cv2.resize(frame[y:y+h,x:x+w], (50, 50))
             identified_person = identify_face(face.reshape(1,-1))[0]
-            print((identified_person))
+           
             row_details=display_details(identified_person)
             row_records=display_reports(row_details.Patient_id)
             return render_template('hospital_display.html', row=row_details,row1=row_records)
