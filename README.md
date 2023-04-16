@@ -17,13 +17,13 @@ Some Screenshots of the APplication to get basic idea how it works -
 ![Screenshot (279)](https://user-images.githubusercontent.com/95924396/232316363-70e21a73-aa34-4870-af40-1d525daeb3d1.png)
 
 ### Hospital after scanning patient's face
-![Screenshot (280)](https://user-images.githubusercontent.com/95924396/232316383-6d11f2f0-8121-4fd7-a91b-af38d56e7d66.png)
+![Screenshot (280)](https://user-images.githubusercontent.com/95924396/232317512-893d448d-4607-4a6a-8f74-ef7052874ba1.jpg)
 
 ### Police Dashboard
 ![Screenshot (281)](https://user-images.githubusercontent.com/95924396/232316398-634c27cd-113a-4800-bf4d-62cdb762b857.png)
 
 ### Police after scanning individual's face
-![Screenshot (282)](https://user-images.githubusercontent.com/95924396/232316421-ea224fba-f685-4a38-9335-939d61f41ac9.png)
+![Screenshot (282)](https://user-images.githubusercontent.com/95924396/232317189-99c5ced5-443f-45a7-9039-b83761bc2090.jpg)
 
 ### Scanning face of Unregistered User
 ![Screenshot (283)](https://user-images.githubusercontent.com/95924396/232316455-d78a928b-bb41-4301-a13e-153d4054536c.png)
