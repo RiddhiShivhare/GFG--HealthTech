@@ -26,13 +26,12 @@ TOOLS AND FRAMEWORKS-
 
 Client side-
 Programming lang.- Js
-
 User Interface-HTML,CSS
 
 Server side-
-Programming lang-Python,Databases,MYSQL,
+Programming lang-Python
+Databases-Flask-SQLAlchemy
 
 Framework-Flask
-
 Other Tools-
 IDE-PyCharm 
