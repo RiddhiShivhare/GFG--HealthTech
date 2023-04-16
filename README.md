@@ -9,8 +9,8 @@ Some Screenshots of the APplication to get basic idea how it works -
 ### User Dashboard
 ![Screenshot (277)](https://user-images.githubusercontent.com/95924396/232316316-cdb50094-8431-4558-acf8-3767f2c80a82.png)
 
-### Health Insurance
 
+### Health Insurance
 ![Screenshot (278)](https://user-images.githubusercontent.com/95924396/232316346-29fb60c6-97fb-4d90-ac71-5cde7aecc5fe.png)
 
 ### Hospital Dashboard
